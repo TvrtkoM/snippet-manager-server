@@ -10,7 +10,7 @@ import snippetRouter from './routers/snippetsRouter';
 import userRouter from './routers/userRouter';
 
 const app = express();
-const port = 5000;
+const port = parseInt(process.env['PORT'] as string) || 5000;
 
 app.use(express.json());
 app.use(cookieParser());
