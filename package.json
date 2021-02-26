@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "just a fucking course",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "prepare": "tsc --project .",
+    "start": "node dist/index",
     "dev": "nodemon --ext ts"
   },
   "keywords": [],
