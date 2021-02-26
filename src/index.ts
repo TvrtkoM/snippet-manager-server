@@ -10,7 +10,7 @@ import snippetRouter from './routers/snippetsRouter';
 import userRouter from './routers/userRouter';
 
 const app = express();
-const port = process.env['PORT'] || 5000;
+const port = process.env['PORT'] == null ? 5000 : parseInt(process.env['PORT']);
 
 app.use(express.json());
 app.use(cookieParser());
@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-app.listen(port as number, 'localhost', () => {
+app.listen(port, 'localhost', () => {
   console.log(`server starter on port ${port}`);
 });
 
