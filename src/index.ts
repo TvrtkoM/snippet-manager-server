@@ -21,7 +21,7 @@ app.use(
   })
 );
 
-app.listen(port, 'localhost', () => {
+app.listen(port, () => {
   console.log(`server starter on port ${port}`);
 });
 
