@@ -43,7 +43,6 @@ router.post('/', async (req: Request, res: Response) => {
 
     await User.create({ email, passwordHash });
     res.status(201).send();
-
   } catch (e) {
     /* handle error */
     return res.status(500).send();
@@ -76,18 +75,23 @@ router.post('/login', async (req: Request, res: Response) => {
 
     // create a JWT token and send instead of the user data
     const jwtData = {
-      id: existingUser.get('_id')
-    }
+      id: existingUser.get('_id'),
+    };
 
     const token = jwt.sign(jwtData, process.env['JWT_SECRET'] as string);
 
-    res.cookie('token', token, { httpOnly: true, sameSite: prod ? 'none' : 'lax', secure: prod ? true : false }).send();
+    res
+      .cookie('token', token, {
+        httpOnly: true,
+        sameSite: prod ? 'none' : 'lax',
+        secure: prod ? true : false,
+      })
+      .send();
   } catch (e) {
     /* handle error */
     return res.status(500).send();
   }
 });
-
 
 router.get('/who', async (req: Request, res: Response) => {
   try {
@@ -105,10 +109,16 @@ router.get('/who', async (req: Request, res: Response) => {
   }
 });
 
-
 router.get('/logout', async (_: Request, res: Response) => {
   try {
-    res.clearCookie('token').send();
+    res
+      .cookie('token', '', {
+        httpOnly: true,
+        sameSite: prod ? 'none' : 'lax',
+        secure: prod ? true : false,
+        expires: new Date(0),
+      })
+      .send();
   } catch (e) {
     res.send(null);
   }
