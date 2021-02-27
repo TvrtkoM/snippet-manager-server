@@ -81,7 +81,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
     const token = jwt.sign(jwtData, process.env['JWT_SECRET'] as string);
 
-    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: prod ? true : false }).send();
+    res.cookie('token', token, { httpOnly: true, sameSite: prod ? 'none' : 'lax', secure: prod ? true : false }).send();
   } catch (e) {
     /* handle error */
     return res.status(500).send();
