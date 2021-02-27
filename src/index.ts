@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: ['localhost:9000', 'snippetmanager-tvrtko.netlify.app'],
+    origin: ['http://localhost:9000', 'https://snippetmanager-tvrtko.netlify.app'],
     credentials: true,
   })
 );
