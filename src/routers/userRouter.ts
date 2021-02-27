@@ -5,6 +5,8 @@ import User from '../models/userModel';
 
 const router = Router();
 
+const prod = process.env['ENV'] === 'production';
+
 router.post('/', async (req: Request, res: Response) => {
   try {
     const { email, password, passwordVerify } = req.body;
@@ -79,7 +81,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
     const token = jwt.sign(jwtData, process.env['JWT_SECRET'] as string);
 
-    res.cookie('token', token, { httpOnly: true }).send();
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none', secure: prod ? true : false }).send();
   } catch (e) {
     /* handle error */
     return res.status(500).send();
